@@ -1,0 +1,60 @@
+syntax = "proto3";
+package pb_mars;
+
+import "pb_common.proto";
+
+enum CMD
+{
+	CMD_DEF = 0;
+	CMD_LOGIN_MSG = 0x10101;
+	CMD_CREATE_ROLE_MSG = 0x10102;
+	CMD_LOAD_USER_MSG = 0x10103;
+	CMD_SYS_TIME_MSG = 0x900101;
+}
+message login_msg//1,0x10101#登录
+{
+	 uint32 platform = 1;//平台号common_msg.E_PLATFORM
+	 string account = 2; //账号
+	 string password = 3; //密码
+	
+	 //string wechat_access_token = 100;//调用接口凭证
+	 //string wechat_openid = 101;//普通用户标识，对该公众帐号唯一
+}
+
+message login_msg_res
+{
+	 uint32 has_role = 1;//0:目前没有角色,1:当前已经有角色
+}
+
+
+message create_role_msg//1,0x10102#创建角色
+{
+	 string name = 1;//昵称
+}
+
+message create_role_msg_res
+{
+}
+
+message load_user_msg//1,0x10103#获取角色登录信息
+{
+}
+
+message load_user_msg_res
+{
+	user_t user = 1;//用户信息
+	repeated event_t events = 2;//事件信息
+}
+
+	////////////////////////////////////////////////
+	//系统
+	////////////////////////////////////////////////
+message sys_time_msg//1,0x900101#或取系统当前时间
+{
+
+}
+
+message sys_time_msg_res
+{
+	 uint32 time_sec = 1;//当前时间
+}
